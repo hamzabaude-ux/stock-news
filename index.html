@@ -3,8 +3,30 @@
 <head>
   <title>Stock News App</title>
 </head>
+
 <body>
-  <h1>🚀 الموقع شغال!</h1>
-  <p>جاهز نربط الأخبار</p>
+
+<h1>📊 Stock News Finder</h1>
+
+<input id="stock" placeholder="اكتب رمز السهم (مثل TSLA)" />
+<button onclick="searchNews()">ابحث</button>
+
+<div id="results"></div>
+
+<script>
+async function searchNews() {
+  let stock = document.getElementById("stock").value;
+
+  let url = "https://api.allorigins.win/raw?url=" +
+            encodeURIComponent("https://news.google.com/rss/search?q=" + stock);
+
+  let res = await fetch(url);
+  let text = await res.text();
+
+  document.getElementById("results").innerHTML =
+    "<pre>" + text.substring(0, 1000) + "</pre>";
+}
+</script>
+
 </body>
 </html>
