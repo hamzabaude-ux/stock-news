@@ -17,11 +17,11 @@
 async function searchNews() {
   let stock = document.getElementById("stock").value;
 
-  let url = "https://api.allorigins.win/raw?url=" +
-            encodeURIComponent("https://news.google.com/rss/search?q=" + stock);
+  let url = "/api/news?ticker=" + encodeURIComponent(stock);
 
   let res = await fetch(url);
-  let text = await res.text();
+  let data = await res.json();
+  let text = data.xml;
 
   document.getElementById("results").innerHTML =
     "<pre>" + text.substring(0, 1000) + "</pre>";
